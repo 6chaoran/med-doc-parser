@@ -7,6 +7,8 @@
     </div>
     Query: <input v-model="query"><button @click="chat">send</button><br>
     {{ resp }}
+    
+    <pdfView />
 
 </template>
 <script setup>

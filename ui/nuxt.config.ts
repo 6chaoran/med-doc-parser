@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
+  nitro: {
+    firebase: {
+      gen: 2
+    }
+  },
   runtimeConfig: {
     openai_api_key: process.env.OPENAI_API_KEY,
     // firebase_api_key: process.env.FIREBASE_API_KEY,
@@ -12,7 +17,7 @@ export default defineNuxtConfig({
   vuefire: {
     config: {
       apiKey: process.env.FIREBASE_API_KEY,
-      authDomain: "med-doc-parser.firebaseapp.com",
+      authDomain: "med-doc-parser.firebaseapp.com", //"med-doc-parser.ichaoran.com", 
       projectId: "med-doc-parser",
       storageBucket: "med-doc-parser.appspot.com",
       messagingSenderId: "134706535223",
