@@ -19,6 +19,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@azure/ai-form-recognizer": "^5.0.0",
     "@tato30/vue-pdf": "^1.9.4",
     "firebase": "^10.7.2",
     "h3": "^1.10.1",

@@ -9,6 +9,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     openai_api_key: process.env.OPENAI_API_KEY,
+    azure_ocr_endpoint: process.env.AZURE_DOC_AI_ENDPOINT,
+    azure_ocr_key: process.env.AZURE_DOC_AI_KEY,
     // firebase_api_key: process.env.FIREBASE_API_KEY,
   },
   modules: [
@@ -26,6 +28,6 @@ export default defineNuxtConfig({
     },
     auth: {
       enabled: true
-    }
+    },
   }
 })
