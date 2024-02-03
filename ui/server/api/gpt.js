@@ -14,11 +14,12 @@ export default defineEventHandler(async (event) => {
     {
         test_date: <YYYY-mm-dd>,
         test_results: [
-            {category:},
-            {name: },
-            {value: },
-            {unit: },
-            {reference range: },
+          { category: string,
+            name: string,
+            value: number | string,
+            unit: string,
+            reference range: string
+          }
         ]
     }
     '''
@@ -30,15 +31,16 @@ export default defineEventHandler(async (event) => {
 
     valid JSON object:
     `
-    console.log(prompt)
+    // console.log(query)
     const completion = await openai.chat.completions.create({
         messages: [
             { role: "system", content: "You are a helpful assistant." },
             { role: "user", content: prompt },
         ],
-        model: "gpt-3.5-turbo",
+        model: "gpt-3.5-turbo-0125",
         temperature: 0,
-        max_tokens: 2048
+        max_tokens: 2048,
+        response_format: { "type": "json_object" }
     });
 
     return completion.choices[0].message

@@ -15,6 +15,9 @@ export default defineNuxtConfig({
   },
   modules: [
     'nuxt-vuefire',
+    '@nuxtjs/tailwindcss',
+    '@invictus.codes/nuxt-vuetify',
+    "@nuxt/image"
   ],
   vuefire: {
     config: {
@@ -29,5 +32,22 @@ export default defineNuxtConfig({
     auth: {
       enabled: true
     },
-  }
+  },
+  vuetify: {
+    /* vuetify options */
+    vuetifyOptions: {
+      // @TODO: list all vuetify options
+    },
+
+    moduleOptions: {
+      /* nuxt-vuetify module options */
+      treeshaking: true, // | false,
+      useIconCDN: true, //| false,
+
+      /* vite-plugin-vuetify options */
+      styles: true, //| 'none' | 'expose' | 'sass' | { configFile: string },
+      autoImport: true, //| false,
+      useVuetifyLabs: true, // | false, 
+    }
+  },
 })

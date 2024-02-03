@@ -1,17 +1,24 @@
 <template>
-    <div style="margin: auto; width: 300px; padding: 2rem;" v-if="!redirect">
-        <div style="display: flex; flex-direction: column; justify-content: center; max-width: 400px;">
-            <button @click="signinRedirect()" style="margin-bottom: 1rem;">Sign In with Google</button>
-            Email:<input type="text" v-model="email">
-            Password:<input type="password" v-model="password">
-            <button @click="signUpWithPassword()" style="margin-top: 1rem; margin-bottom: 0.5rem;">Sign Up</button>
-            <button @click="signInWithPassword()" style="margin-bottom: 1rem;">Sign In</button>
-            <button @click="forgetPassword()" style="margin-bottom: 1rem;">Forget Passowrd</button>
+    <div v-if="!redirect" style="max-width: 300px; padding: 2rem; margin:auto">
+        <div class="dflex flex-col flex-nowrap space-y-1 align-center justify-center">
+
+            <v-btn class="text-none color-green" @click="signinRedirect()" style="margin-bottom: 1rem;">
+                <NuxtImg width="25px" height="25px" class="mr-3" src="/google.png"></NuxtImg>Sign In with Google
+            </v-btn>
+            <v-divider class="my-3"></v-divider>
+
+            <v-text-field variant="underlined" v-model="email" label="Email"></v-text-field>
+            <v-text-field variant="underlined" v-model="password" label="password" type="password"></v-text-field>
+
+            <v-btn :color="themeColor" @click="signUpWithPassword()" class="text-none w-100">Sign Up</v-btn>
+            <v-btn :color="themeColor" @click="signInWithPassword()" class="text-none w-100">Sign In</v-btn>
+            <v-btn :color="themeColor" @click="forgetPassword()" class="text-none w-100">Forget Passowrd</v-btn>
+
             <p v-if="error" style="color: red;">{{ error }}</p>
             <p v-if="info">{{ info }}</p>
         </div>
     </div>
-    <div v-if="redirect">Redirecting</div>
+    <div v-else>Redirecting</div>
 </template>
 
 <script>
@@ -28,7 +35,11 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth'
-
+definePageMeta({
+    layout: 'login'
+})
+const appConfig = useAppConfig()
+const themeColor = appConfig.theme.primaryColor
 const auth = useFirebaseAuth() // only exists on client side
 const error = ref(null)
 const info = ref(null)
@@ -38,7 +49,7 @@ const redirect = ref(false)
 const signinRedirect = () => {
     redirect.value = true
     signInWithRedirect(auth, googleAuthProvider).then((cred) => {
-        if(cred){
+        if (cred) {
             console.log(cred)
             navigateTo('/')
         }
@@ -56,7 +67,7 @@ const signInWithPassword = () => {
             const user = userCredential.user;
             console.log(user)
             if (user) {
-                if (user.emailVerified){
+                if (user.emailVerified) {
                     navigateTo('/')
                 } else {
                     info.value = "Please check your inbox to verify your email."
@@ -75,7 +86,7 @@ const signUpWithPassword = () => {
     createUserWithEmailAndPassword(auth, email.value, password.value)
         .then((userCredential) => {
             // Signed up 
-            if(userCredential){
+            if (userCredential) {
                 const user = userCredential.user;
                 sendVerifyEmail(user)
                 info.value = "Please check your inbox to verify your email before signing in."
@@ -94,7 +105,7 @@ const forgetPassword = () => {
 }
 
 const cred = await getRedirectResult(auth)
-if(cred){
+if (cred) {
     navigateTo('/')
 }
 
