@@ -3,9 +3,13 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   nitro: {
-    firebase: {
-      gen: 2
-    }
+    // firebase: {
+    //   gen: 2
+    // },
+    preset: 'vercel-edge'
+  },
+  build: {
+    transpile: ['tslib']
   },
   runtimeConfig: {
     openai_api_key: process.env.OPENAI_API_KEY,

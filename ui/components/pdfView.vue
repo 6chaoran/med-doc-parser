@@ -4,7 +4,6 @@
         <v-btn @click="uploadPDF" class="text-none" :color="themeColor">Upload</v-btn>
         <v-btn @click="callOCR" :color="themeColor">OCR</v-btn>
         <v-btn @click="callGPT" :color="themeColor">GPT</v-btn>
-        <v-btn @click="callGPT2" :color="themeColor">GPT2</v-btn>
     </div>
 
     <input type="text">
@@ -106,6 +105,7 @@ const callOCR = async () => {
     status.value = 'OCRing'
     content.value = ''
     let data
+    let error_
     try {
         const { data: d } = await useFetch('/api/ocr', {
             params: { url }
@@ -114,10 +114,10 @@ const callOCR = async () => {
     } catch (e) {
         const t1 = new Date()
         const elapsed = (t1 - t0) / 3600
-        error.value = e
+        error_ = e
         status.value = elapsed.toFixed(1) + ' sec'
     }
-
+    error.value = error_
     console.log(data.value)
     content.value = data.value.content
     const t1 = new Date()
@@ -130,34 +130,30 @@ const callGPT = async () => {
     status.value = 'GPTing'
     resp.value = null
     let data
+    let status_
+    let error_
     try {
         const { data:d } = await useFetch('/api/gpt', {
             params: { query: content.value },
             timeout: 30000 // timeout in 30 sec
         })
         data = d
-    } catch (e) {
-        error.value = e
         const t1 = new Date()
         const elapsed = (t1 - t0) / 1000
-        status.value = 'aborted in '+elapsed.toFixed(1) + ' sec'
-    }
-
+        status_ = 'completed in '+elapsed.toFixed(1) + ' sec'
+    } catch (e) {
+        const t1 = new Date()
+        const elapsed = (t1 - t0) / 1000
+        status_ = 'aborted in '+elapsed.toFixed(1) + ' sec'
+        error_ = e
+    } 
+    status.value = status_
+    error.value = error_
     console.log(data.value.content)
     resp.value = JSON.parse(data.value.content)
-    const t1 = new Date()
-    const elapsed = (t1 - t0) / 1000
-    status.value = 'completed in ' + elapsed.toFixed(1) + ' sec'
+    
 }
 
-const callGPT2 = async () => {
-    const { data } = await useFetch('/api/gpt2', {
-            params: { query: content.value },
-            timeout: 30000,
-        })
-    console.log(data.value)
-
-}
 
 
 const updatePDFFile = (e) => {
