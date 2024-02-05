@@ -1,10 +1,10 @@
 import OpenAI from "openai";
-const openai = new OpenAI();
+
 import { getQuery } from "h3";
 export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig(event);
+    const openai = new OpenAI({apiKey:config.openai_api_key});
     console.log(config.openai_api_key)
-    openai.apiKey = config.openai_api_key
     const { query } = getQuery(event)
     const prompt = `Please extract the lab test result from the texts generated from medical test report via OCR system.
     Output a valid JSON object to compile with the given schema.

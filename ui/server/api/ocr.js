@@ -1,11 +1,5 @@
 import { AzureKeyCredential, DocumentAnalysisClient} from "@azure/ai-form-recognizer";
 
-function* getTextOfSpans(content, spans) {
-    for (const span of spans) {
-      yield content.slice(span.offset, span.offset + span.length);
-    }
-  }
-
 const getOCRTextFromFile = async(url, client) => {
     // const file = fs.createReadStream(body)
     // const poller = await client.beginAnalyzeDocument("prebuilt-read", body);
