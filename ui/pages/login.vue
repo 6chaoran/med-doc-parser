@@ -3,7 +3,7 @@
         <div class="dflex flex-col flex-nowrap space-y-1 align-center justify-center">
 
             <v-btn class="text-none color-green" @click="signinRedirect()" style="margin-bottom: 1rem;">
-                <NuxtImg width="25px" height="25px" class="mr-3" src="/google.png"></NuxtImg>Sign In with Google
+                <img width="25px" height="25px" class="mr-3" src="/google.png" />Sign In with Google
             </v-btn>
             <v-divider class="my-3"></v-divider>
 
