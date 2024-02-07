@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     // preset: 'vercel-edge'
   },
   build: {
-    // transpile: ['tslib']
+    transpile: ['tslib']
   },
   runtimeConfig: {
     openai_api_key: process.env.OPENAI_API_KEY,
