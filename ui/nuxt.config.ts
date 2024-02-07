@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     firebase: {
       gen: 2
     },
-    // preset: 'vercel-edge'
+    preset: 'vercel-edge'
   },
   build: {
     // transpile: ['tslib']

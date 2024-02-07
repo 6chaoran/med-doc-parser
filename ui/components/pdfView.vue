@@ -104,22 +104,18 @@ const callOCR = async () => {
     const t0 = new Date()
     status.value = 'OCRing'
     content.value = ''
-    let data
-    let error_
-    try {
-        const { data: d } = await useFetch('/api/ocr', {
-            params: { url }
-        })
-        data = d
-    } catch (e) {
-        const t1 = new Date()
-        const elapsed = (t1 - t0) / 3600
-        error_ = e
-        status.value = elapsed.toFixed(1) + ' sec'
-    }
-    error.value = error_
+
+    const { data } = await useFetch('/api/ocr', {
+        // query: { url: url.value }
+        method: 'POST',
+        body: { url: url.value }
+    })
+      
     console.log(data.value)
-    content.value = data.value.content
+    if(data){
+        content.value = data.value.content
+    }
+    
     const t1 = new Date()
     const elapsed = (t1 - t0) / 3600
     status.value = elapsed.toFixed(1) + ' sec'
