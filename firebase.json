@@ -5,6 +5,14 @@
   },
   "hosting": {
     "public": ".output/public",
+    "site": "med-doc-parser",
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "server"
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",

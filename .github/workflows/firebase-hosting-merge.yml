@@ -18,4 +18,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MED_DOC_PARSER }}'
           channelId: live
           projectId: med-doc-parser
-          environment: production
+          # environment: production
