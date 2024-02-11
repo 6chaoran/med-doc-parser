@@ -1,5 +1,5 @@
 <template>
-    2024-02-06
+    <a href="/result">Go To Result</a>
     <pdfView />
 </template>
 <script setup>
