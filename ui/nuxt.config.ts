@@ -3,8 +3,16 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   nitro: {
+    preset: 'firebase',
     firebase: {
-      gen: 2
+      gen: 2,
+      httpsOptions: {
+        region: 'asia-southeast1',
+        maxInstances: 3,
+      },
+    },
+    replace: {
+      "functions.https.onRequest": "functions.region('asia-southeast1').https.onRequest",
     },
     // preset: 'vercel-edge'
   },
@@ -26,7 +34,8 @@ export default defineNuxtConfig({
   vuefire: {
     config: {
       apiKey: process.env.FIREBASE_API_KEY,
-      authDomain: "med-doc-parser.firebaseapp.com", //"med-doc-parser.ichaoran.com", 
+      authDomain: "med-doc-parser.ichaoran.com",  //"med-doc-parser.firebaseapp.com", //
+      databaseURL: "https://med-doc-parser-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "med-doc-parser",
       storageBucket: "med-doc-parser.appspot.com",
       messagingSenderId: "134706535223",
