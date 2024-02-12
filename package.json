@@ -27,6 +27,7 @@
     "@invictus.codes/nuxt-vuetify": "^0.3.0",
     "@tato30/vue-pdf": "^1.9.4",
     "firebase": "^10.7.2",
+    "firebase-tools": "^13.2.1",
     "h3": "^1.10.1",
     "nuxt-vuefire": "^1.0.1",
     "openai": "^4.26.0",
