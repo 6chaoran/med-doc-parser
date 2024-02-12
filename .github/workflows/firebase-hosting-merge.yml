@@ -19,3 +19,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MED_DOC_PARSER }}'
           channelId: live
           projectId: med-doc-parser
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks,pintags
