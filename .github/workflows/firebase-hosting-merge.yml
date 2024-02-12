@@ -12,6 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm ci && npm run build-firebase
+        env:
+          AZURE_DOC_AI_ENDPOINT: ${{ secrets.AZURE_DOC_AI_ENDPOINT }}
+          AZURE_DOC_AI_KEY: ${{ secrets.AZURE_DOC_AI_KEY }}
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
@@ -20,8 +25,5 @@ jobs:
           projectId: med-doc-parser
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks,pintags
-          AZURE_DOC_AI_ENDPOINT: ${{ secrets.AZURE_DOC_AI_ENDPOINT }}
-          AZURE_DOC_AI_KEY: ${{ secrets.AZURE_DOC_AI_KEY }}
-          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
 
