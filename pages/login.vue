@@ -2,7 +2,7 @@
     <div v-if="!redirect" style="max-width: 300px; padding: 2rem; margin:auto">
         <div class="dflex flex-col flex-nowrap space-y-1 align-center justify-center">
 
-            <v-btn class="text-none color-green" @click="signinRedirect()" style="margin-bottom: 1rem;">
+            <v-btn class="w-100 text-none color-green" @click="signinRedirect()" style="margin-bottom: 1rem;">
                 <img width="25px" height="25px" class="mr-3" src="/google.png" />Sign In with Google
             </v-btn>
             <v-divider class="my-3"></v-divider>
