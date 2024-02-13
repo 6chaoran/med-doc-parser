@@ -1,7 +1,9 @@
 <template>
     <v-file-input @change="updatePDFFile" label="PDF:" variant="underlined"></v-file-input>
+    <v-btn class="my-3 text-none" :color="themeColor" @click="processE2E" :disabled="!user | !pdfFile">Go</v-btn>
+    Sign in to procced your own sample
     <div class="dflex flex-row space-x-1">
-        <v-btn @click="uploadPDF" class="text-none" :color="themeColor">Upload</v-btn>
+        <v-btn @click="uploadPDF" class="text-none" :color="themeColor" >Upload</v-btn>
         <v-btn @click="callOCR" :color="themeColor">OCR</v-btn>
         <v-btn @click="callGPT" :color="themeColor">GPT</v-btn>
         <v-btn @click="saveToDB" :color="themeColor">Save</v-btn>
@@ -152,8 +154,6 @@ const callGPT = async () => {
     
 }
 
-
-
 const updatePDFFile = (e) => {
     const files = e.target.files
     pdfFile.value = files[0]
@@ -168,6 +168,12 @@ const updatePDFFile = (e) => {
         return;
     reader.readAsArrayBuffer(files[0])
     filename.value = files[0].name
+}
+
+const processE2E = async () =>{
+    await uploadPDF()
+    await callOCR()
+    await callGPT()
 }
 
 import { ref as dbRef, set } from 'firebase/database'

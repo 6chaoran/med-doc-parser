@@ -1,11 +1,11 @@
 <template>
     <div v-if="results2">
         <div v-for="(result, idx) in results2" :key="idx">
-            {{ idx }} <br> 
-            {{ result }}
+            <my-table :people="result" :title="result.id" class="mt-6"></my-table>
         </div>
-        
-        <v-form></v-form>
+    </div>
+    <div v-else>
+        Sign In to view your parsed results
     </div>
 </template>
 <script setup>
@@ -20,7 +20,9 @@ let results2 = null
 if(user){
     const resultRef = dbRef(db, `lab_result/${user.uid}`)
     results2 =  useDatabaseList(resultRef)
-    // console.log(results.value)
+    console.log(results2.value)
+} else {
+    results2 = null
 }
 
 </script>
