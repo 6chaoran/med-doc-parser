@@ -1,76 +1,32 @@
-
 <template>
-    <!--
-      This example requires updating your template:
-  
-      ```
-      <html class="h-full bg-white">
-      <body class="h-full">
-      ```
-    -->
-    <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-20 w-auto rounded-full" src="/images.jfif"
-                alt="Your Company" />
-            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account
-            </h2>
-        </div>
-        
+    <div v-if="!redirect" style="max-width: 300px; padding: 2rem; margin:auto">
+        <div class="dflex flex-col flex-nowrap space-y-1 align-center justify-center">
 
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <v-btn class="w-100 text-none color-green" @click="signinRedirect()" style="margin-bottom: 1rem;">
                 <img width="25px" height="25px" class="mr-3" src="/google.png" />Sign In with Google
             </v-btn>
             <v-divider class="my-3"></v-divider>
-                <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                    <div class="mt-2">
-                        <v-text-field id="email" density="compact" variant="outlined" v-model="email"></v-text-field>
-                    </div>
-                </div>
 
-                <div>
-                    <div class="flex items-center justify-between">
-                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-                        <div class="text-sm">
-                            <v-btn @click="forgetPassword" variant="text" class="text-none"><a
-                                    class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a></v-btn>
+            <v-text-field variant="underlined" v-model="email" label="Email"></v-text-field>
+            <v-text-field variant="underlined" v-model="password" label="password" type="password"></v-text-field>
 
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <v-text-field id="password" density="compact" variant="outlined" type="password"
-                            v-model="password"></v-text-field>
-                    </div>
-                </div>
+            <v-btn :color="themeColor" @click="signUpWithPassword()" class="text-none w-100">Sign Up</v-btn>
+            <v-btn :color="themeColor" @click="signInWithPassword()" class="text-none w-100">Sign In</v-btn>
+            <v-btn :color="themeColor" @click="forgetPassword()" class="text-none w-100">Forget Passowrd</v-btn>
 
-                <div class="mt-9">
-                    <button @click="signInWithPassword"
-                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                        in</button>
-                </div>
-
-            <p class="mt-10 text-center text-sm text-gray-500">
-                Not a member?
-                {{ ' ' }}
-                <a href="#" @click="signUpWithPassword" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a 14 day free
-                trial</a>
-
-            </p>
+            <p v-if="error" style="color: red;">{{ error }}</p>
+            <p v-if="info">{{ info }}</p>
         </div>
     </div>
+    <div v-else>Redirecting</div>
 </template>
-  
-<script>
 
+<script>
 import { GoogleAuthProvider } from 'firebase/auth'
 export const googleAuthProvider = new GoogleAuthProvider()
 </script>
 
 <script setup>
-definePageMeta({
-    layout: 'blank'
-})
 import {
     getRedirectResult,
     signInWithRedirect,
@@ -79,7 +35,9 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth'
-
+definePageMeta({
+    layout: 'blank'
+})
 const appConfig = useAppConfig()
 const themeColor = appConfig.theme.primaryColor
 const auth = useFirebaseAuth() // only exists on client side

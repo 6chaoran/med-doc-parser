@@ -270,7 +270,7 @@ const userNavigation = [
 
 const sidebarOpen = ref(false)
 const currentUser = ref(
-  { name: 'Not Signed In', avatar: '/images.jfif', status: null}
+  { name: 'Not Signed In', avatar: '/user.jpg', status: null}
 )
 const user = await getCurrentUser()
 if (user) {
@@ -283,8 +283,8 @@ const auth = useFirebaseAuth()
 const signout = () => {
   signOut(auth).then(() => {
     console.log('Signed Out')
-    currentUser.value =  { name: 'Not Signed In', avatar: '/images.jfif', status: null }
-    router.push({ name: 'login' })
+    currentUser.value =  { name: 'Not Signed In', avatar: '/user.jpg', status: null }
+    navigateTo('/')
   }).catch((error) => {
     console.log(error)
   })

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build --preset=firebase",
     "build-firebase": "nuxt build --preset=firebase",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
