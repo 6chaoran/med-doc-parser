@@ -1,5 +1,5 @@
 <template>
-    <a href="/">Go To Home</a>
+    <a href="/data">Go To data</a>
     <br>
     <LabResult />
 </template>
