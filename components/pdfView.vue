@@ -2,11 +2,14 @@
     <v-file-input @change="updatePDFFile" label="PDF:" variant="underlined"></v-file-input>
     <v-btn class="my-3 text-none" :color="themeColor" @click="processE2E" :disabled="!user | !pdfFile">Go</v-btn>
     Sign in to procced your own sample
+    <div v-if="resp" class="my-6">
+        <ParsedForm :raw-data="resp"/>
+    </div>
     <div class="dflex flex-row space-x-1">
-        <v-btn @click="uploadPDF" class="text-none" :color="themeColor" >Upload</v-btn>
+        <!-- <v-btn @click="uploadPDF" class="text-none" :color="themeColor" >Upload</v-btn>
         <v-btn @click="callOCR" :color="themeColor">OCR</v-btn>
-        <v-btn @click="callGPT" :color="themeColor">GPT</v-btn>
-        <v-btn @click="saveToDB" :color="themeColor">Save</v-btn>
+        <v-btn @click="callGPT" :color="themeColor">GPT</v-btn> -->
+        <v-btn @click="saveToDB" :color="themeColor" rounded="" class="text-none">Save results</v-btn>
     </div>
 
     <input type="text">
@@ -22,30 +25,9 @@
     <v-text-field v-model="url" variant="underlined " clearable></v-text-field>
     <v-text-field v-model="content" variant="underlined" clearable></v-text-field>
     <hr>
-    <div v-if="resp">
-        {{ resp.test_date }}
-        <v-table fixed-header height="400px">
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Name</th>
-                    <th>Value</th>
-                    <th>Unit</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="row in resp.test_results">
-                    <td>{{ row.category }}</td>
-                    <td>{{ row.name }}</td>
-                    <td>{{ row.value }}</td>
-                    <td>{{ row.unit }}</td>
-                </tr>
-            </tbody>
-        </v-table>
-    </div>
-    <div>
-        {{ resp2 }}
-    </div>
+
+
+
 </template>
 <script setup>
 
@@ -57,7 +39,6 @@ const pdfFile = ref(null)
 const content = ref(null)
 const filename = ref('')
 const resp = ref(Object)
-const resp2 = ref('')
 const status = ref('Ready')
 const error = ref('')
 const url = ref('')
@@ -66,7 +47,8 @@ content.value = "quest LABORATORIES\nYOUR PARTNER IN LABORATORY SERVICES\nQuest 
 
 import { useFirebaseStorage, useDatabaseObject, useDatabase } from 'vuefire'
 import { ref as storageRef } from 'firebase/storage'
-
+import { uploadBytes, getDownloadURL } from "firebase/storage";
+import { $on } from 'vue-happy-bus'
 
 const storage = useFirebaseStorage()
 const db = useDatabase()
@@ -92,7 +74,9 @@ resp.value = JSON.parse(`{
             "reference range": ""
         }]}`)
 
-import { uploadBytes, getDownloadURL } from "firebase/storage";
+$on('parsedData', (d) => {
+    resp.value = d
+})
 
 const uploadPDF = async () => {
     status.value = 'Uploading'
@@ -166,7 +150,7 @@ const updatePDFFile = (e) => {
     }
     if (!files.length)
         return;
-    reader.readAsArrayBuffer(files[0])
+    
     filename.value = files[0].name
 }
 

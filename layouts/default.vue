@@ -47,7 +47,7 @@
               <!-- Sidebar component, swap this element with another sidebar if you like -->
               <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
                 <div class="flex h-16 shrink-0 items-center">
-                  <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white"
+                  <img class="h-8 w-auto rounded-full" src="/logo.jfif"
                     alt="Your Company" />
                 </div>
                 <nav class="flex flex-1 flex-col">
@@ -66,7 +66,7 @@
                       </ul>
                     </li>
                     <li>
-                      <div class="text-xs font-semibold leading-6 text-indigo-200">Your teams</div>
+                      <!-- <div class="text-xs font-semibold leading-6 text-indigo-200">Your teams</div> -->
                       <ul role="list" class="-mx-2 mt-2 space-y-1">
                         <li v-for="team in teams" :key="team.name">
                           <a :href="team.href"
@@ -101,7 +101,7 @@
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
         <div class="flex h-16 shrink-0 items-center">
-          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="Your Company" />
+          <img class="h-10 w-auto rounded-full" src="/logo.jfif" alt="Your Company" /> 
         </div>
         <nav class="flex flex-1 flex-col">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -119,7 +119,7 @@
               </ul>
             </li>
             <li>
-              <div class="text-xs font-semibold leading-6 text-indigo-200">Your teams</div>
+              <!-- <div class="text-xs font-semibold leading-6 text-indigo-200">Your teams</div> -->
               <ul role="list" class="-mx-2 mt-2 space-y-1">
                 <li v-for="team in teams" :key="team.name">
                   <a :href="team.href"
@@ -217,7 +217,8 @@
       <main class="py-10">
         <div class="px-4 sm:px-6 lg:px-8">
           <!-- Your content -->
-          <slot />
+          
+            <slot />
         </div>
       </main>
     </div>
@@ -251,17 +252,17 @@ import {
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = ref([
-  { name: 'Home', href: '/', icon: HomeIcon, current: false },
-  { name: 'Result', href: '/result', icon: UsersIcon, current: false },
+  { name: 'Home', href: '/result', icon: HomeIcon, current: false },
+  { name: 'Data', href: '/data', icon: UsersIcon, current: false },
   // { name: 'Projects', href: '#', icon: FolderIcon, current: false },
   // { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
   // { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
   // { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
 ])
 const teams = [
-  { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-  { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-  { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+  // { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
+  // { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
+  // { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
 const userNavigation = [
   { name: 'Your profile', href: '#' },
@@ -275,7 +276,7 @@ const currentUser = ref(
 const user = await getCurrentUser()
 if (user) {
   currentUser.value.name = user.displayName ?? user.email
-  currentUser.value.avatar = user.photoURL ?? '/images.jfif'
+  currentUser.value.avatar = user.photoURL ?? '/logo.jfif'
   currentUser.value.status = 'signedIn'
 }
 import { signOut } from "firebase/auth";

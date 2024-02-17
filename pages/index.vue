@@ -5,26 +5,26 @@
                 <div class="flex lg:flex-1">
                     <a href="#" class="-m-1.5 p-1.5">
                         <span class="sr-only">Your Company</span>
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        <img class="h-10 w-auto rounded-full" src="/logo.jfif"
                             alt="" />
                     </a>
                 </div>
                 <div class="flex lg:hidden">
-                    <button type="button"
+                    <!-- <button type="button"
                         class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
                         @click="mobileMenuOpen = true">
                         <span class="sr-only">Open main menu</span>
                         <Bars3Icon class="h-6 w-6" aria-hidden="true" />
-                    </button>
+                    </button> -->
                 </div>
                 <div class="hidden lg:flex lg:gap-x-12">
                     <a v-for="item in navigation" :key="item.name" :href="item.href"
                         class="text-sm font-semibold leading-6 text-gray-900">{{ item.name }}</a>
                 </div>
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
+                <!-- <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                    <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
                             aria-hidden="true">&rarr;</span></a>
-                </div>
+                </div> -->
             </nav>
             <Dialog as="div" class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
                 <div class="fixed inset-0 z-50" />
@@ -48,11 +48,11 @@
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{{
                                         item.name }}</a>
                             </div>
-                            <div class="py-6">
-                                <a href="#"
+                            <!-- <div class="py-6">
+                                <a href="/login"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
                                     in</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </DialogPanel>
@@ -75,10 +75,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Data to enrich your online
-                        business</h1>
-                    <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui
-                        irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+                    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Uncover your health report data insight</h1>
+                    <p class="mt-6 text-lg leading-8 text-gray-600">streamline the health report data management</p>
                     <div class="mt-10 flex items-center justify-center gap-x-6">
                         <a href="/result"
                             class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get
@@ -105,10 +103,10 @@ definePageMeta({
     layout: 'blank'
 })
 const navigation = [
-    { name: 'Product', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Marketplace', href: '#' },
-    { name: 'Company', href: '#' },
+    // { name: 'Product', href: '#' },
+    // { name: 'Features', href: '#' },
+    // { name: 'Marketplace', href: '#' },
+    // { name: 'Company', href: '#' },
 ]
 
 const mobileMenuOpen = ref(false)

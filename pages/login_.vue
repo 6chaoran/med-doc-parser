@@ -105,6 +105,7 @@ const forgetPassword = () => {
 }
 
 const cred = await getRedirectResult(auth)
+console.log(cred)
 if (cred) {
     navigateTo('/')
 }
