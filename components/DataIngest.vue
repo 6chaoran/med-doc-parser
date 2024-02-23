@@ -1,7 +1,11 @@
 <template>
     <div class="flex flex-col">
         <Notification :show="showNotification" class="z-10"/>
-        status: {{ status }}<br>
+        <div v-if="status" class="mb-3">
+            {{ status }}
+            <v-progress-linear v-model="progress"></v-progress-linear>
+        </div>
+
         <div v-if="parsed" class="space-y-3">
             <ParsedForm :raw-data="parsed" />
             <v-btn @click="saveToDB" :color="themeColor" rounded="" class="text-none" prepend-icon="mdi-content-save">Save</v-btn>
@@ -42,6 +46,7 @@ const status = ref(null)
 const url = ref(null)
 const showNotification = ref(false)
 const uploadedFilePath = ref(null)
+const progress = ref(0)
 
 const text = ref(null) //OCRed Text
 const parsed = ref(null) //parsed Json object string
@@ -65,10 +70,10 @@ const parsed = ref(null) //parsed Json object string
 
 const parsedPostProcessed = computed( () => {
     if(parsed.value){
-        const date = parsed.value.test_date
+        const date = parsed.value.test_date.replaceAll('/', '-')
         const results = parsed.value.test_results
         const source = { source: url.value, ingested_time: new Date().toLocaleString() }
-        const resultsWithIds = results.reduce((a, v) => ({ ...a, [v.category + '|' + v.name]: {...v, ...source}}), {}) 
+        const resultsWithIds = results.reduce((a, v) => ({ ...a, [(v.category + '|' + v.name).replaceAll('/', '-')]: {...v, ...source}}), {}) 
         return { test_date: date, test_results: resultsWithIds}
     } else {
         return null
@@ -175,9 +180,13 @@ const callGPT = async () => {
 }
 
 const processE2E = async () => {
+    progress.value = 0
     await uploadFile()
+    progress.value = 10
     await callOCR()
+    progress.value = 50
     await callGPT()
+    progress.value = 100
 }
 
 import { ref as dbRef, set, push, get, update } from 'firebase/database'
@@ -199,6 +208,11 @@ const saveToDB = () => {
         setTimeout(() => {
             showNotification.value = false
         }, 2000)
+
+        clearFile()
     }
+
+    
+
 }
 </script>

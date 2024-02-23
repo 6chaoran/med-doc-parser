@@ -9,18 +9,20 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th class="w-1/3 text-left leading-6 px-3 border-2">Name</th>
-                    <th class="w-1/3 text-left leading-6 px-3 border-2">Value</th>
-                    <th class="w-1/3 text-left leading-6 px-3 border-2">Unit</th>
+                    <th class="w-2 text-left leading-6 px-3 border-2"></th>
+                    <th class="w-1/2 text-left leading-6 px-3 border-2">Name</th>
+                    <th class="w-1/4 text-left leading-6 px-3 border-2">Value</th>
+                    <th class="text-left leading-6 px-3 border-2">Unit</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="row, idx in data.test_results">
                     <td class="border-2 px-1"><input class="w-full px-3" type="checkbox" :value="idx" v-model="selected">
                     </td>
-                    <td class="border-2"><input class="w-full px-3" type="text" v-model="row.name"></td>
-                    <td class="border-2"><input class="w-full px-3" type="text" v-model="row.value"></td>
-                    <td class="border-2"><input class="w-full px-3" type="text" v-model="row.unit"></td>
+                    <td class="border-2 text-center text-sm">{{ idx + 1 }}</td>
+                    <td class="border-2 text-sm"><input class="w-full px-3" type="text" v-model="row.name"></td>
+                    <td class="border-2 text-sm"><input class="w-full px-3" type="text" v-model="row.value"></td>
+                    <td class="border-2 text-sm"><input class="w-full px-3" type="text" v-model="row.unit"></td>
                 </tr>
             </tbody>
         </table>

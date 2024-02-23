@@ -65,8 +65,9 @@
   </template>
   
   <script>
-import { GoogleAuthProvider } from 'firebase/auth'
+import { GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth'
 export const googleAuthProvider = new GoogleAuthProvider()
+export const githubAuthProvider = new GithubAuthProvider()
 </script>
 
 <script setup>

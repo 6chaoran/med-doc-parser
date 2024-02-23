@@ -16,6 +16,11 @@ export default defineNuxtConfig({
     },
     // preset: 'vercel-edge'
   },
+  vite: {
+    optimizeDeps: {
+      include: ["plotly.js-dist-min"],
+    },
+  },
   build: {
     transpile: ['tslib']
   },
@@ -29,7 +34,8 @@ export default defineNuxtConfig({
     'nuxt-vuefire',
     '@nuxtjs/tailwindcss',
     '@invictus.codes/nuxt-vuetify',
-    "@nuxt/image"
+    "@nuxt/image",
+    "nuxt-plotly",
   ],
   vuefire: {
     config: {

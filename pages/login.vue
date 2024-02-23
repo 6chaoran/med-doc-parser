@@ -9,7 +9,7 @@
     -->
   <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class=" sm:mx-auto sm:w-full sm:max-w-md">
-      <img class="mx-auto h-14 w-auto rounded-full" src="/logo.jfif" alt="Your Company" />
+      <!-- <img class="mx-auto h-14 w-auto rounded-full" src="/logo.jfif" alt="Your Company" /> -->
       <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
     </div>
 
@@ -79,7 +79,7 @@
           </a>
 
 
-            <!-- <a href="#"
+            <a @click="signInWithGitHub" type="button"
               class="flex w-full items-center justify-center gap-3 rounded-md bg-[#24292F] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]">
               <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
@@ -87,7 +87,7 @@
                   clip-rule="evenodd" />
               </svg>
               <span class="text-sm font-semibold leading-6">GitHub</span>
-            </a> -->
+            </a>
           </div>
         </div>
       </div>
@@ -105,8 +105,9 @@
 
 <script>
 
-import { GoogleAuthProvider } from 'firebase/auth'
+import { GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth'
 export const googleAuthProvider = new GoogleAuthProvider()
+export const githubAuthProvider = new GithubAuthProvider()
 </script>
 
 <script setup>
@@ -133,6 +134,19 @@ const redirect = ref(false)
 const signInWithGoogle = () => {
   redirect.value = true
   signInWithRedirect(auth, googleAuthProvider).then((cred) => {
+    if (cred) {
+      console.log(cred)
+      navigateTo('/result')
+    }
+  }).catch((reason) => {
+    console.error('Failed sign', reason)
+    error.value = reason
+  })
+}
+
+const signInWithGitHub = () => {
+  redirect.value = true
+  signInWithRedirect(auth, githubAuthProvider).then((cred) => {
     if (cred) {
       console.log(cred)
       navigateTo('/result')
@@ -192,7 +206,7 @@ const forgetPassword = () => {
 
 const cred = await getRedirectResult(auth)
 if (cred) {
-  navigateTo('/')
+  navigateTo('/result')
 }
 
 </script>

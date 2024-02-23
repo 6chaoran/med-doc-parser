@@ -265,7 +265,7 @@ const teams = [
   // { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
 const userNavigation = [
-  { name: 'Your profile', href: '#' },
+  { name: 'Your Lab Result', href: '/result' },
   { name: 'Sign out', href: '#', event: "signout" },
 ]
 
