@@ -1,34 +1,34 @@
 <template>
-    Chart<br>
+    
     <div class="flex space-x-3">
-        <v-select v-model="selected.category" 
-            label="Category" variant="outlined" density="compact"
+        <v-select v-model="selected.category" class="w-1/2" label="Category" variant="outlined" density="compact"
             :items="Object.keys(categoryNames)"></v-select>
-        <v-select v-model="selected.name" 
-            label="Name" variant="outlined" density="compact"
-            @update:model-value="updateValues"
+        <v-select v-model="selected.name" class="w-1/2" label="Name" variant="outlined" density="compact"
             :items="categoryNames[selected.category]" :disabled="!selected.category"></v-select>
     </div>
-
-    <hr>
-    {{ selectedValues }}
+    <LineChart v-if="selected.name" 
+        :selectedValues="selectedValues" 
+        :name="selected.name" 
+        id="chart"/>
+    
 </template>
 <script setup>
+
 const props = defineProps({
     testResult: Object
 })
 const selected = ref({
     category: null,
-    name: null
+    name:  null 
 })
-const categoryNames = computed( () => {
-    const values = props.testResult.map( x => {
+const categoryNames = computed(() => {
+    const values = props.testResult.map(x => {
         const v = Object.values(x)
-        const out = v.map( (i) => ({category: i.category, name: i.name}))
+        const out = v.map((i) => ({ category: i.category, name: i.name }))
         let mapper = {}
-        for (const elm of out){
+        for (const elm of out) {
             const k = elm.category
-            if ( mapper[k] ){
+            if (mapper[k]) {
                 mapper[k].push(elm.name)
             } else {
                 mapper[k] = [elm.name]
@@ -36,20 +36,34 @@ const categoryNames = computed( () => {
         }
         return mapper
     })
-    const mapper = values.reduce((a,v) => ({...a,  ...v}) , {})
+    const mapper = values.reduce((a, v) => ({ ...a, ...v }), {})
     return mapper
 })
 
 const selectedValues = computed(() => {
-        const values = props.testResult.map(x => {
+    const values = props.testResult.map(x => {
         const v = Object.values(x)
-        const out = v.map((i) => ({ category: i.category, name: i.name, value: i.value }))
-        return out
+        const date = x.id
+        const out = v.map((i) => ({
+            date: x.id,
+            category: i.category,
+            name: i.name,
+            value: i.value,
+            unit: i.unit
+        }))
+        return out.filter(i => i.name === selected.value.name)
     })
-    return values.reduce( (a, v) => (a.concat(v)), [])
+    return values.reduce((a, v) => (a.concat(v)), [])
 })
 
+const filterName = (arr, name) => {
+    return arr.filter(i => i.name === name)
+}
 
-console.log(selectedValues)
+
+
+
+
+
 
 </script>

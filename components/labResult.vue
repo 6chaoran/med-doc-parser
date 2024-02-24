@@ -1,5 +1,8 @@
 <template>
     <div v-if="results2" class="my-3 space-y-1">
+        <p class="font-semibold mb-3 text-gray-500">Show selected trendable chart</p>
+        <MyChart :testResult="results2" /> 
+        <p class="font-semibold mb-3 text-gray-500">Parsed historical health record</p>
         <v-expansion-panels v-for="(result, idx) in results2" :key="idx">
             <v-expansion-panel>
                 <v-expansion-panel-title>{{ result.id }}    
@@ -12,7 +15,7 @@
                 </v-expansion-panel-text>
             </v-expansion-panel>
         </v-expansion-panels>
-        <MyChart :testResult="results2" />    
+           
     </div>
     
 </template>
