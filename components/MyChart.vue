@@ -10,6 +10,7 @@
         :selectedValues="selectedValues" 
         :name="selected.name" 
         id="chart"/>
+
     
 </template>
 <script setup>

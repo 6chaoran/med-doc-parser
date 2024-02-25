@@ -79,7 +79,7 @@
           </a>
 
 
-            <a @click="signInWithGitHub" type="button"
+            <!-- <a @click="signInWithGitHub" type="button"
               class="flex w-full items-center justify-center gap-3 rounded-md bg-[#24292F] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]">
               <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
@@ -87,7 +87,7 @@
                   clip-rule="evenodd" />
               </svg>
               <span class="text-sm font-semibold leading-6">GitHub</span>
-            </a>
+            </a> -->
           </div>
         </div>
       </div>
@@ -128,8 +128,8 @@ const themeColor = appConfig.theme.primaryColor
 const auth = useFirebaseAuth() // only exists on client side
 const error = ref(null)
 const info = ref(null)
-const email = ref('chaoran.liu@icloud.com')
-const password = ref('Meinanzi110')
+const email = ref(null)
+const password = ref(null)
 const redirect = ref(false)
 const signInWithGoogle = () => {
   redirect.value = true

@@ -24,7 +24,7 @@
     -->
     <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <img class="mx-auto h-14 w-auto rounded-full" src="/logo.jfif" alt="Your Company" />
+        <!-- <img class="mx-auto h-14 w-auto rounded-full" src="/logo.jfif" alt="Your Company" /> -->
         <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up your account</h2>
       </div>
   
@@ -133,8 +133,8 @@ const themeColor = appConfig.theme.primaryColor
 const auth = useFirebaseAuth() // only exists on client side
 const error = ref(null)
 const info = ref(null)
-const email = ref('chaoran.liu@icloud.com')
-const password = ref('Meinanzi110')
+const email = ref(null)
+const password = ref(null)
 const redirect = ref(false)
 const signInWithGoogle = () => {
     redirect.value = true

@@ -35,10 +35,10 @@ const props = defineProps({
 const x = computed(() => props.selectedValues.map(i => i.date))
 const y = computed(() => props.selectedValues.map(i => i.value))
 const unit = computed(() => props.selectedValues.map(i => i.unit)[0])
-
+let chartDom
+let myChart
 const showChart = () => {
-    const chartDom = document.getElementById(props.id)
-    const myChart = echarts.init(chartDom)
+
     const option = {
 
         tooltip: {
@@ -89,6 +89,8 @@ const showChart = () => {
 }
 
 onMounted(() => {
+    chartDom = document.getElementById(props.id)
+    myChart = echarts.init(chartDom)
     showChart()
 })
 watch(y, () => {
