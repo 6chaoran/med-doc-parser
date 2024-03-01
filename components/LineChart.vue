@@ -1,7 +1,7 @@
 <template>
 
 {{ name }}
-    <div :id="id" style="height: 400px; width: 100%;"></div>
+    <div class="max-w-[600px]" :id="id" style="height: 300px; width: 100%;"></div>
 </template>
 <script setup>
 import * as echarts from 'echarts/core';

@@ -1,10 +1,10 @@
 <template>
     <div v-if="results2" class="my-3 space-y-1">
-        <p class="font-semibold mb-3 text-gray-500">Selected a test variable to view the trend</p>
-        <MyChart :testResult="results2" /> 
+        <p class="font-semibold mb-3 text-gray-500">Selected a test category to view your trends</p>
+        <MyChart :testResult="(results2)" /> 
         <hr class="my-3">
         <p class="font-semibold mb-3 text-gray-500">Historical health records</p>
-        <v-expansion-panels v-for="(result, idx) in sortArray(results2)" :key="idx">
+        <v-expansion-panels v-for="(result, idx) in (results2)" :key="idx">
             <v-expansion-panel>
                 <v-expansion-panel-title>{{ result.id }}    
                 </v-expansion-panel-title>

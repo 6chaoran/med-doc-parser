@@ -15,8 +15,16 @@
             <v-file-input @change="updateFile" v-model="imgFiles" @click:clear="clearFile" label="Medical Report"
                 variant="underlined" :accept="['.png', '.jpg', '.pdf']"></v-file-input>
             <v-btn class="my-3 text-none" rounded="lg" :color="themeColor" @click="processE2E"
-                :disabled="!user || !fileType">Go</v-btn>
+                :disabled="!user || !fileType || quota < 1">Go ({{ quota }})</v-btn> 
+       
         </div>
+
+        <DialogBase :open="true" 
+            v-if="quota < 1"
+            title="" 
+            text="You have used up your daily quota" >
+            <v-icon class="mt-3 ml-3" color="orange">mdi-alert</v-icon>
+        </DialogBase>
 
         <div class="flex justify-center px-3">
             <img :src="uploadedImg" v-if="fileType == 'image'" class="max-h-[600px]">
@@ -187,6 +195,7 @@ const processE2E = async () => {
     progress.value = 50
     await callGPT()
     progress.value = 100
+    updateQuota()
 }
 
 import { ref as dbRef, set, push, get, update } from 'firebase/database'
@@ -211,8 +220,33 @@ const saveToDB = () => {
 
         clearFile()
     }
-
-    
-
 }
+
+
+const quota = ref(null)
+const usage = ref(null)
+const today = (new Date()).toLocaleDateString('en-CA')
+const quotaRef = dbRef(db, `quota/${user.value.uid}/${today}`)
+const getQuota = async () => {
+    const a = (await get(quotaRef)).toJSON()
+    console.log(a)
+    quota.value = a?.quota ?? 10
+    usage.value = a?.usage ?? 0
+}
+
+const updateQuota = () => {
+    quota.value -= 1
+    usage.value += 1
+    set(quotaRef, {
+        quota: quota.value,
+        usage: usage.value,
+    })
+}
+
+onMounted( () => {
+    getQuota()
+})
+
+
+
 </script>
